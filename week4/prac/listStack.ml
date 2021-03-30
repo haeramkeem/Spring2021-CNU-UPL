@@ -5,10 +5,13 @@ type t = int list
 let empty = []
 
 (* Practice1 *)
-let push elem stack = (* write your code *) 
+let push elem stack = elem :: stack 
 
 (* Practice2 *)
-let pop stack = (* write your code *) 
+let pop stack = 
+        match stack with
+        | [] -> failwith "Stack is empty"
+        | h :: t -> h, t
 
 let print_stack fmt stack = 
   let rec print_stack_impl stack = 
