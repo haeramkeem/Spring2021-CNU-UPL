@@ -7,9 +7,12 @@ and t = (string * value) list
 
 let empty = []
 
-let insert x n s = 
+let insert x n s = (x, n) :: s
 
 let rec find x s = 
+  match s with
+  | [] -> failwith ("Free identifier " ^ x)
+  | (x', n) :: t -> if x' = x then n else find x t 
 
 let rec pp_v fmt v =
   match v with
