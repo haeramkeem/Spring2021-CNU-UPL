@@ -4,10 +4,27 @@ type t = (string * (string list * Ast.expr)) list
 
 let empty = []
 
-let insert x plist body s = (* write your code *)
+let insert x plist body s =
+  (* write your code *)
+  let rec insert_impl f acc s = 
+    match s with
+      | [] -> acc
+      | (fname, rest) :: t -> (
+        if fname = f then (acc @ t)
+        else insert_impl f (acc @ [(fname, rest)]) t
+      )
+  in
+  let deleted = insert_impl x [] s in
+  (x, (plist, body)) :: deleted
 
 let rec find x s = 
   (* write your code *)
+  match s with
+    | [] -> failwith ("Free identifier " ^ x)
+    | (fname, rest) :: t -> (
+      if fname = x then rest
+      else find x t
+    )
 
 let pp fmt s = 
   let rec pp_impl fmt s = 
